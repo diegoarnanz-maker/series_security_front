@@ -1,0 +1,46 @@
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-4">
+  <!-- Usuario -->
+  <div>
+    <label for="username" class="block text-gray-700 font-medium">Usuario</label>
+    <input
+      type="text"
+      id="username"
+      formControlName="username"
+      class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring-2 focus:ring-primary focus:outline-none"
+    />
+    @if (submitted && loginForm.controls.username?.invalid) {
+      <p class="text-red-500 text-sm mt-1">El usuario es obligatorio (mín. 3 caracteres).</p>
+    }
+  </div>
+
+  <!-- Contraseña -->
+  <div>
+    <label for="password" class="block text-gray-700 font-medium">Contraseña</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring-2 focus:ring-primary focus:outline-none"
+    />
+    @if (submitted && loginForm.controls.password?.invalid) {
+      <p class="text-red-500 text-sm mt-1">La contraseña debe tener al menos 6 caracteres.</p>
+    }
+  </div>
+
+  <!-- Botón de Login con Loader -->
+  <button
+    type="submit"
+    class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition flex items-center justify-center"
+    [disabled]="loading || loginForm.invalid"
+  >
+    @if (loading) {
+      <span class="animate-spin mr-2 border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>
+    }
+    Iniciar Sesión
+  </button>
+
+  <!-- Mensaje de Error -->
+  @if (errorMessage) {
+    <div class="text-red-500 text-center mt-3">{{ errorMessage }}</div>
+  }
+</form>
