@@ -1,16 +1,22 @@
-<!-- <div class="flex justify-center space-x-4 my-4">
-    @for (let action of actions; track action.key) {
-      <button 
-        (click)="onAction(action.key)" 
-        class="px-4 py-2 rounded shadow-md transition"
-        [ngClass]="{
-          'bg-secondary text-white hover:bg-gray-700': action.key === 'list',
-          'bg-primary text-white hover:bg-gray-700': action.key === 'add',
-          'bg-yellow-500 text-white hover:bg-yellow-600': action.key === 'edit',
-          'bg-red-500 text-white hover:bg-red-600': action.key === 'delete'
-        }">
-        {{ action.label }}
-      </button>
-    }
-  </div>
-   -->
+<div class="flex justify-center space-x-4 mt-4">
+  <button
+    (click)="viewSerie()"
+    class="px-4 py-2 rounded shadow-md transition bg-blue-500 text-white hover:bg-blue-600"
+  >
+    Ver
+  </button>
+
+  <button
+    (click)="editSerie()"
+    class="px-4 py-2 rounded shadow-md transition bg-yellow-500 text-white hover:bg-yellow-600"
+  >
+    Editar
+  </button>
+
+  <button
+    (click)="deleteSerie()"
+    class="px-4 py-2 rounded shadow-md transition bg-red-500 text-white hover:bg-red-600"
+  >
+    Eliminar
+  </button>
+</div>

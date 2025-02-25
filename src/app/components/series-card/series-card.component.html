@@ -15,3 +15,6 @@
     >Ver tráiler</a
   >
 </div>
+@if (isAdmin) {
+  <app-action-buttons [serieId]="serie.id" (actionCompleted)="handleAction($event)"></app-action-buttons>
+}

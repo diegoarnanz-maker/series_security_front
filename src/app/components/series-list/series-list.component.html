@@ -9,11 +9,9 @@
   <p class="text-center text-red-500">{{ errorMessage }}</p>
   }
 
-  <!-- NO ME DEJA USAR EL CONTROL FLOW -->
   <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <app-series-card
-      *ngFor="let serie of series; trackBy: trackById"
-      [serie]="serie"
-    ></app-series-card>
+    @for (serie of series; track serie.id) {
+      <app-series-card [serie]="serie"></app-series-card>
+    }
   </div>
 </div>

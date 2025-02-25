@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ActionButtonsComponent } from "../action-buttons/action-buttons.component";
 import { Serie } from '../../models/interfaces/serie';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-series-card',
@@ -10,6 +11,15 @@ import { Serie } from '../../models/interfaces/serie';
   styleUrl: './series-card.component.css'
 })
 export class SeriesCardComponent {
+  authService = inject(AuthService);
 
   @Input() serie!: Serie;
+
+  isAdmin = this.authService.getUserRole() === 'ROLE_ADMIN';
+  handleAction(event: string) {
+    if (event === 'deleted') {
+      console.log('Serie eliminada correctamente');
+    }
+  }
+  
 }
