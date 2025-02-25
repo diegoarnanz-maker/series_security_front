@@ -1,0 +1,47 @@
+<div class="max-w-4xl mx-auto p-6">
+  <h1 class="text-3xl font-bold text-primary text-center mb-4">
+    {{ serie?.title }}
+  </h1>
+
+  @if (getSafeTrailerUrl()) {
+  <div class="w-full">
+    <h2 class="text-xl font-semibold text-primary text-center mb-2">Tráiler</h2>
+    <iframe
+      class="w-full h-64 rounded-lg shadow-md"
+      [src]="getSafeTrailerUrl() | safeUrl"
+      frameborder="0"
+      allow="autoplay"
+      allowfullscreen
+    ></iframe>
+  </div>
+  } @else {
+  <img
+    [src]="serie?.imageUrl"
+    alt="{{ serie?.title }}"
+    class="w-full h-64 object-cover rounded shadow-md"
+  />
+  }
+
+  <div class="mt-6">
+    <p class="text-lg"><strong>Género: </strong> {{ serie?.genre }}</p>
+    <p class="text-lg">
+      <strong>Año de Estreno:</strong> {{ serie?.releaseYear }}
+    </p>
+    <p class="text-lg">
+      <strong>Rating: </strong>
+      <span class="font-bold text-primary"> {{ serie?.rating }} ⭐ </span>
+    </p>
+    <p class="text-lg mt-2">
+      <strong>Descripción: </strong> {{ serie?.description }}
+    </p>
+  </div>
+
+  <div class="mt-6 flex justify-end">
+    <a
+      routerLink="/admin/series-management"
+      class="bg-text text-white px-4 py-2 rounded shadow-md hover:bg-gray-700 transition"
+    >
+      Volver
+    </a>
+  </div>
+</div>

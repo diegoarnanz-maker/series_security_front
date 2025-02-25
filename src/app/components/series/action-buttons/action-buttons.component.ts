@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { SeriesService } from '../../services/series.service';
+import { SeriesService } from '../../../services/series.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,8 +21,8 @@ export class ActionButtonsComponent {
   }
 
   editSerie() {
-    this.router.navigate(['/admin/series-edit', this.serieId]);
-  }
+    this.router.navigate([`/admin/series-edit/${this.serieId}`]);
+  }  
 
   deleteSerie() {
     if (confirm('¿Estás seguro de que quieres eliminar esta serie?')) {

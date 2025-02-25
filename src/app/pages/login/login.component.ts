@@ -28,23 +28,16 @@ export class LoginComponent {
   onLogin() {
     this.submitted = true;
     this.errorMessage = '';
-  
+
     if (this.loginForm.invalid) {
       return;
     }
-  
-    const credentials = {
-      username: this.loginForm.value.username!,
-      password: this.loginForm.value.password!
-    };
-  
+
+    const { username, password } = this.loginForm.value;
+
     this.loading = true;
-    this.authService.login(credentials).subscribe({
+    this.authService.login(username!, password!).subscribe({
       next: (response) => {
-        console.log('Login exitoso:', response);
-  
-        localStorage.setItem('user', JSON.stringify(response));
-  
         if (response.roles.includes('ROLE_ADMIN')) {
           this.router.navigate(['/admin/dashboard']);
         } else {
@@ -57,5 +50,4 @@ export class LoginComponent {
       }
     });
   }
-  
 }

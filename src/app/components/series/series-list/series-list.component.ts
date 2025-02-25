@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { Serie } from '../../models/interfaces/serie';
-import { SeriesService } from '../../services/series.service';
+import { Serie } from '../../../models/interfaces/serie';
+import { SeriesService } from '../../../services/series.service';
 import { CommonModule } from '@angular/common';
 import { SeriesCardComponent } from '../series-card/series-card.component';
 

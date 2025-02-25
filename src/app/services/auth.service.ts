@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/auth';
@@ -15,13 +15,25 @@ export class AuthService {
     return this.userSubject.asObservable();
   }
 
-  login(credentials: { username: string; password: string }): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
-      tap(user => {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.userSubject.next(user);
-      })
-    );
+  login(username: string, password: string): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/login`, { username, password })
+      .pipe(
+        tap((response) => {
+          const userData = {
+            username: username,
+            password: password,
+            roles: response.roles,
+          };
+
+          localStorage.setItem('user', JSON.stringify(userData));
+          this.userSubject.next(userData);
+        }),
+        catchError((error) => {
+          console.error('❌ Error en login:', error);
+          return throwError(() => new Error('Error al iniciar sesión'));
+        })
+      );
   }
 
   isAuthenticated(): boolean {
@@ -35,7 +47,7 @@ export class AuthService {
 
   getUsername(): string | null {
     const user = this.loadUserFromStorage();
-    return user ? user.user : null;
+    return user ? user.username : null;
   }
 
   logout(): void {
@@ -44,6 +56,6 @@ export class AuthService {
   }
 
   private loadUserFromStorage(): any {
-    return JSON.parse(localStorage.getItem('user')!);
+    return JSON.parse(localStorage.getItem('user') || 'null');
   }
 }

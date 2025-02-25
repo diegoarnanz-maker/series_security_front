@@ -1,0 +1,136 @@
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-2xl font-bold text-primary text-center mb-6">
+      {{ isEditing ? 'Editar Serie' : 'Añadir Nueva Serie' }}
+    </h1>
+  
+    <!-- Formulario de Serie -->
+    <form [formGroup]="serieForm" (ngSubmit)="saveSerie()" class="space-y-4">
+      <!-- Título -->
+      <div>
+        <label for="title" class="block text-sm font-medium text-text">Título</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+        />
+        @if (serieForm.controls['title'].invalid && serieForm.controls['title'].touched) {
+          <p class="text-red-500 text-xs mt-1">El título debe tener al menos 3 caracteres.</p>
+        }
+      </div>
+  
+      <!-- Descripción -->
+      <div>
+        <label for="description" class="block text-sm font-medium text-text">Descripción</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="3"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+        ></textarea>
+        @if (serieForm.controls['description'].invalid && serieForm.controls['description'].touched) {
+          <p class="text-red-500 text-xs mt-1">La descripción debe tener al menos 10 caracteres.</p>
+        }
+      </div>
+  
+      <!-- Género -->
+      <div>
+        <label for="genre" class="block text-sm font-medium text-text">Género</label>
+        <select
+          id="genre"
+          formControlName="genre"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+        >
+          <option value="">Seleccione un género</option>
+          <option value="Drama">Drama</option>
+          <option value="Comedia">Comedia</option>
+          <option value="Ciencia Ficción">Ciencia Ficción</option>
+          <option value="Acción">Acción</option>
+        </select>
+        @if (serieForm.controls['genre'].invalid && serieForm.controls['genre'].touched) {
+          <p class="text-red-500 text-xs mt-1">Seleccione un género válido.</p>
+        }
+      </div>
+  
+      <!-- Año de Estreno -->
+      <div>
+        <label for="releaseYear" class="block text-sm font-medium text-text">Año de Estreno</label>
+        <input
+          type="text"
+          id="releaseYear"
+          formControlName="releaseYear"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+          placeholder="Ejemplo: 2020"
+        />
+        @if (serieForm.controls['releaseYear'].invalid && serieForm.controls['releaseYear'].touched) {
+          <p class="text-red-500 text-xs mt-1">Ingrese un año válido (Ejemplo: 2023).</p>
+        }
+      </div>
+  
+      <!-- Rating -->
+      <div>
+        <label for="rating" class="block text-sm font-medium text-text">Rating (0-10)</label>
+        <input
+          type="number"
+          id="rating"
+          formControlName="rating"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+          readonly="true"
+        />
+        @if (serieForm.controls['rating'].invalid && serieForm.controls['rating'].touched) {
+          <p class="text-red-500 text-xs mt-1">El rating debe estar entre 0 y 10.</p>
+        }
+      </div>
+  
+      <!-- Imagen URL -->
+      <div>
+        <label for="imageUrl" class="block text-sm font-medium text-text">Imagen URL</label>
+        <input
+          type="text"
+          id="imageUrl"
+          formControlName="imageUrl"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+          placeholder="https://imagen.com/ejemplo.jpg"
+        />
+        @if (serieForm.controls['imageUrl'].invalid && serieForm.controls['imageUrl'].touched) {
+          <p class="text-red-500 text-xs mt-1">Debe proporcionar una URL válida.</p>
+        }
+      </div>
+  
+      <!-- Trailer URL -->
+      <div>
+        <label for="trailerUrl" class="block text-sm font-medium text-text">Trailer URL (Opcional)</label>
+        <input
+          type="text"
+          id="trailerUrl"
+          formControlName="trailerUrl"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+          placeholder="https://youtube.com/trailer"
+        />
+      </div>
+  
+      <!-- Botones -->
+      <div class="flex justify-between mt-6">
+        <button
+          type="button"
+          (click)="goBack()"
+          class="px-4 py-2 bg-text text-white rounded hover:bg-gray-700 transition"
+        >
+          Cancelar
+        </button>
+  
+        <button
+          type="submit"
+          class="px-4 py-2 bg-primary text-white rounded hover:bg-secondary transition"
+          [disabled]="serieForm.invalid"
+        >
+          {{ isEditing ? 'Actualizar Serie' : 'Crear Serie' }}
+        </button>
+      </div>
+  
+      @if (errorMessage) {
+        <p class="text-red-500 text-center mt-4">{{ errorMessage }}</p>
+      }
+    </form>
+  </div>
+  

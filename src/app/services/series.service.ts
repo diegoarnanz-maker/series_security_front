@@ -39,4 +39,5 @@ export class SeriesService {
   deleteSerie(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
 }

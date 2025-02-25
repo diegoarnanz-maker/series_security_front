@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { ActionButtonsComponent } from "../action-buttons/action-buttons.component";
-import { Serie } from '../../models/interfaces/serie';
-import { AuthService } from '../../services/auth.service';
+import { Serie } from '../../../models/interfaces/serie';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-series-card',
