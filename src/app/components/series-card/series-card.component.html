@@ -1,0 +1,17 @@
+<img
+  [src]="serie.imageUrl"
+  alt="{{ serie.title }}"
+  class="w-full h-40 object-cover rounded"
+/>
+<h2 class="text-xl font-semibold mt-2 text-primary">{{ serie.title }}</h2>
+<p class="text-sm text-gray-600">{{ serie.genre }} - {{ serie.releaseYear }}</p>
+<p class="text-sm text-gray-700 mt-2">{{ serie.description }}</p>
+<div class="mt-3 flex justify-between items-center">
+  <span class="text-yellow-500 font-bold">{{ serie.rating }} ⭐</span>
+  <a
+    [href]="serie.trailerUrl"
+    target="_blank"
+    class="text-blue-500 text-sm hover:underline"
+    >Ver tráiler</a
+  >
+</div>

@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<h1 class="text-3xl font-bold text-primary text-center">Panel de Administración</h1>
+
+<div class="max-w-5xl mx-auto p-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+    
+    <!-- Gestión de Series -->
+    <div class="bg-secondary text-white p-6 rounded-lg shadow-md text-center">
+      <h2 class="text-xl font-semibold">Gestión de Series</h2>
+      <p class="mt-2 text-sm">Añadir, editar o eliminar series del catálogo.</p>
+
+      <a routerLink="/admin/series-management" 
+         class="block mt-4 bg-white text-secondary px-4 py-2 rounded shadow-md hover:bg-gray-200 transition">
+        Administrar Series
+      </a>
+    </div>
+
+    <!-- Gestión de Usuarios -->
+    <div class="bg-primary text-white p-6 rounded-lg shadow-md text-center">
+      <h2 class="text-xl font-semibold">Gestión de Usuarios</h2>
+      <p class="mt-2 text-sm">Controlar cuentas, roles y permisos de usuarios.</p>
+
+      <a routerLink="/admin/user-management" 
+         class="block mt-4 bg-white text-primary px-4 py-2 rounded shadow-md hover:bg-gray-200 transition">
+        Administrar Usuarios
+      </a>
+    </div>
+
+    <!-- Gestión de Reviews -->
+    <div class="bg-accent text-white p-6 rounded-lg shadow-md text-center">
+      <h2 class="text-xl font-semibold">Gestión de Reviews</h2>
+      <p class="mt-2 text-sm">Revisar y moderar las opiniones de los usuarios.</p>
+
+      <a routerLink="/admin/reviews-management" 
+         class="block mt-4 bg-white text-accent px-4 py-2 rounded shadow-md hover:bg-gray-200 transition">
+        Moderar Reviews
+      </a>
+    </div>
+
+  </div>
+</div>

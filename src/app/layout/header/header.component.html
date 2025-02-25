@@ -11,19 +11,31 @@
     <img src="assets/img/logo/logo.png" alt="Logo" class="h-12 w-auto" />
   </div>
 
-  <nav class="flex space-x-6 text-lg">
+  <nav class="flex items-center space-x-6 text-lg">
     <a
       routerLink="/"
       class="relative hover:text-accent transition duration-300 after:block after:content-[''] after:w-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
     >
       Inicio
     </a>
-    
-    <a
-      routerLink="/login"
-      class="relative hover:text-accent transition duration-300 after:block after:content-[''] after:w-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
-    >
-      Iniciar Sesión
-    </a>
+
+    @if (!isAuthenticated()) {
+      <a
+        routerLink="/login"
+        class="relative hover:text-accent transition duration-300 after:block after:content-[''] after:w-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+      >
+        Iniciar Sesión
+      </a>
+    } @else {
+      <!-- Mostrar el nombre de usuario -->
+      <span class="text-white font-semibold">{{ getUsername() }}</span>
+
+      <button
+        (click)="logout()"
+        class="relative text-white border border-white p-1 rounded hover:bg-white hover:text-red-600 transition duration-300 drop-shadow-lg"
+      >
+        Cerrar Sesión
+      </button>
+    }
   </nav>
 </header>

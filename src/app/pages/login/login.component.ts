@@ -28,25 +28,34 @@ export class LoginComponent {
   onLogin() {
     this.submitted = true;
     this.errorMessage = '';
-
+  
     if (this.loginForm.invalid) {
       return;
     }
-
+  
     const credentials = {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!
     };
-
+  
     this.loading = true;
     this.authService.login(credentials).subscribe({
-      next: () => {
-        this.router.navigate(['/home']);
+      next: (response) => {
+        console.log('Login exitoso:', response);
+  
+        localStorage.setItem('user', JSON.stringify(response));
+  
+        if (response.roles.includes('ROLE_ADMIN')) {
+          this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.router.navigate(['/user/dashboard']);
+        }
       },
       error: (error) => {
-        this.errorMessage = error.message || 'Error al iniciar sesión';
+        this.errorMessage = error.error?.message || 'Error al iniciar sesión';
         this.loading = false;
       }
     });
   }
+  
 }
