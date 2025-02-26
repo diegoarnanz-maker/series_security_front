@@ -55,6 +55,14 @@ export class AuthService {
     this.userSubject.next(null);
   }
 
+  isAdmin(): boolean {
+    return this.getUserRole() === 'ROLE_ADMIN';
+  }
+
+  isUser(): boolean {
+    return this.getUserRole() === 'ROLE_USER';
+  }
+
   private loadUserFromStorage(): any {
     return JSON.parse(localStorage.getItem('user') || 'null');
   }

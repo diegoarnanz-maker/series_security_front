@@ -3,9 +3,7 @@
       {{ isEditing ? 'Editar Serie' : 'Añadir Nueva Serie' }}
     </h1>
   
-    <!-- Formulario de Serie -->
     <form [formGroup]="serieForm" (ngSubmit)="saveSerie()" class="space-y-4">
-      <!-- Título -->
       <div>
         <label for="title" class="block text-sm font-medium text-text">Título</label>
         <input
@@ -19,7 +17,6 @@
         }
       </div>
   
-      <!-- Descripción -->
       <div>
         <label for="description" class="block text-sm font-medium text-text">Descripción</label>
         <textarea
@@ -33,7 +30,6 @@
         }
       </div>
   
-      <!-- Género -->
       <div>
         <label for="genre" class="block text-sm font-medium text-text">Género</label>
         <select
@@ -52,7 +48,6 @@
         }
       </div>
   
-      <!-- Año de Estreno -->
       <div>
         <label for="releaseYear" class="block text-sm font-medium text-text">Año de Estreno</label>
         <input
@@ -67,7 +62,6 @@
         }
       </div>
   
-      <!-- Rating -->
       <div>
         <label for="rating" class="block text-sm font-medium text-text">Rating (0-10)</label>
         <input
@@ -75,14 +69,12 @@
           id="rating"
           formControlName="rating"
           class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
-          readonly="true"
         />
         @if (serieForm.controls['rating'].invalid && serieForm.controls['rating'].touched) {
           <p class="text-red-500 text-xs mt-1">El rating debe estar entre 0 y 10.</p>
         }
       </div>
   
-      <!-- Imagen URL -->
       <div>
         <label for="imageUrl" class="block text-sm font-medium text-text">Imagen URL</label>
         <input
@@ -97,7 +89,6 @@
         }
       </div>
   
-      <!-- Trailer URL -->
       <div>
         <label for="trailerUrl" class="block text-sm font-medium text-text">Trailer URL (Opcional)</label>
         <input
@@ -109,7 +100,6 @@
         />
       </div>
   
-      <!-- Botones -->
       <div class="flex justify-between mt-6">
         <button
           type="button"

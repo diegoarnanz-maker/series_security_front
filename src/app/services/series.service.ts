@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Serie } from '../models/interfaces/serie';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SeriesService {
   private apiUrl = 'http://localhost:8080/api/series';
@@ -40,4 +40,7 @@ export class SeriesService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+  getGenres(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/genres`);
+  }
 }

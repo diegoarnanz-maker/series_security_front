@@ -17,6 +17,14 @@ export class HeaderComponent {
     return this.authService.isAuthenticated();
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  isUser(): boolean {
+    return this.authService.getUserRole() === 'ROLE_USER';
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

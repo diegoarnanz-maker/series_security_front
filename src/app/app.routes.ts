@@ -45,6 +45,11 @@ export const routes: Routes = [
     component: SeriesFormComponent,
     canActivate: [adminGuard],
   },
+  {
+    path: 'admin/series-add/:id',
+    component: SeriesFormComponent,
+    canActivate: [adminGuard],
+  },
 
   { path: '**', redirectTo: 'login' },
 ];

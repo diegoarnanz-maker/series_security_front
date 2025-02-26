@@ -1,23 +1,65 @@
 <div class="max-w-6xl mx-auto p-6">
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-3xl font-bold text-primary">Lista de Series</h1>
-    
-    <button 
-      routerLink="/admin/series-add"
-      class="bg-primary text-white px-4 py-2 rounded shadow-md hover:bg-secondary transition">
+
+    <button
+      (click)="addSerie()"
+      class="bg-primary text-white px-4 py-2 rounded shadow-md hover:bg-secondary transition"
+    >
       Añadir Serie
     </button>
   </div>
 
+  <div class="bg-card p-4 rounded-lg shadow-md mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <input
+        type="text"
+        [(ngModel)]="nameFilter"
+        (input)="filterSeries()"
+        placeholder="Buscar por nombre"
+        class="p-2 border border-gray-300 rounded w-full"
+      />
+
+      <select
+        [(ngModel)]="genreFilter"
+        (change)="filterSeries()"
+        class="p-2 border border-gray-300 rounded w-full"
+      >
+        <option value="">Todos los géneros</option>
+        @for (genre of genres; track genre) {
+        <option [value]="genre">{{ genre }}</option>
+        }
+      </select>
+
+      <input
+        type="number"
+        [(ngModel)]="ratingFilter"
+        (input)="filterSeries()"
+        placeholder="Filtrar por rating (1-10)"
+        min="1"
+        max="10"
+        class="p-2 border border-gray-300 rounded w-full"
+      />
+    </div>
+  </div>
+
   @if (loading) {
-    <p class="text-center text-gray-500">Cargando series...</p>
+  <p class="text-center text-gray-500">Cargando series...</p>
   } @if (errorMessage) {
-    <p class="text-center text-red-500">{{ errorMessage }}</p>
+  <p class="text-center text-red-500">{{ errorMessage }}</p>
   }
 
+  @if (isFiltered) {
   <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    @for (serie of series; track serie.id) {
-      <app-series-card [serie]="serie"></app-series-card>
+    @for (serie of filteredSeries; track serie.id) {
+    <app-series-card [serie]="serie"></app-series-card>
     }
   </div>
+  } @else {
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    @for (serie of series; track serie.id) {
+    <app-series-card [serie]="serie"></app-series-card>
+    }
+  </div>
+  }
 </div>
