@@ -11,6 +11,8 @@ import { UserManagementComponent } from './pages/admin/user-management/user-mana
 import { ReviewsManagementComponent } from './pages/admin/reviews-management/reviews-management.component';
 import { SeriesDetailComponent } from './components/series/series-detail/series-detail.component';
 import { SeriesFormComponent } from './components/series/series-form/series-form.component';
+import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
+import { UserFormComponent } from './components/user/user-form/user-form.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,6 +50,23 @@ export const routes: Routes = [
   {
     path: 'admin/series-add/:id',
     component: SeriesFormComponent,
+    canActivate: [adminGuard],
+  },
+
+  // **Panel de Usuario**
+  {
+    path: 'users/:id',
+    component: UserDetailComponent,
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'admin/user-add',
+    component: UserFormComponent,
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'admin/user-edit/:id',
+    component: UserFormComponent,
     canActivate: [adminGuard],
   },
 

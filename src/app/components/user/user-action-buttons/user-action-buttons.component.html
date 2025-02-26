@@ -1,0 +1,25 @@
+<div class="flex justify-center space-x-4 mt-4">
+
+  @if(isInSeriesList) {
+    <button
+      class="bg-primary text-white px-4 py-2 rounded-lg shadow-md hover:bg-secondary transition"
+      (click)="viewUser()"
+    >
+      Ver
+    </button>
+  }
+
+  <button
+    class="bg-[#2D89EF] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#1E5BBC] transition"
+    (click)="editUser()"
+  >
+    Editar
+  </button>
+
+  <button
+    class="bg-[#E53935] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#B71C1C] transition"
+    (click)="deleteUser()"
+  >
+    Eliminar
+  </button>
+</div>

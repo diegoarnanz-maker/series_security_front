@@ -1,0 +1,84 @@
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-2xl font-bold text-primary text-center mb-6">
+      {{ isEditing ? 'Editar Usuario' : 'Añadir Nuevo Usuario' }}
+    </h1>
+  
+    <form [formGroup]="userForm" (ngSubmit)="saveUser()" class="space-y-4">
+      <div>
+        <label for="username" class="block text-sm font-medium text-text">Nombre de Usuario</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+        />
+        @if (userForm.controls['username'].invalid && userForm.controls['username'].touched) {
+          <p class="text-red-500 text-xs mt-1">El nombre de usuario es obligatorio.</p>
+        }
+      </div>
+  
+      <div>
+        <label for="email" class="block text-sm font-medium text-text">Correo Electrónico</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+        />
+        @if (userForm.controls['email'].invalid && userForm.controls['email'].touched) {
+          <p class="text-red-500 text-xs mt-1">Ingrese un correo electrónico válido.</p>
+        }
+      </div>
+  
+      <div>
+        <label for="role" class="block text-sm font-medium text-text">Rol</label>
+        <select
+          id="role"
+          formControlName="role"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+        >
+          <option value="">Seleccione un rol</option>
+          <option value="ROLE_ADMIN">Administrador</option>
+          <option value="ROLE_USER">Usuario</option>
+        </select>
+        @if (userForm.controls['role'].invalid && userForm.controls['role'].touched) {
+          <p class="text-red-500 text-xs mt-1">Seleccione un rol válido.</p>
+        }
+      </div>
+  
+      <div>
+        <label for="password" class="block text-sm font-medium text-text">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="w-full p-2 border rounded focus:ring-2 focus:ring-primary focus:outline-none"
+        />
+        @if (userForm.controls['password'].invalid && userForm.controls['password'].touched) {
+          <p class="text-red-500 text-xs mt-1">La contraseña debe tener al menos 6 caracteres.</p>
+        }
+      </div>
+  
+      <div class="flex justify-between mt-6">
+        <button
+          type="button"
+          (click)="goBack()"
+          class="px-4 py-2 bg-text text-white rounded hover:bg-gray-700 transition"
+        >
+          Cancelar
+        </button>
+  
+        <button
+          type="submit"
+          class="px-4 py-2 bg-primary text-white rounded hover:bg-secondary transition"
+          [disabled]="userForm.invalid"
+        >
+          {{ isEditing ? 'Actualizar Usuario' : 'Crear Usuario' }}
+        </button>
+      </div>
+  
+      @if (errorMessage) {
+        <p class="text-red-500 text-center mt-4">{{ errorMessage }}</p>
+      }
+    </form>
+  </div>
