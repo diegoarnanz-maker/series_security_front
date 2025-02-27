@@ -23,9 +23,10 @@
         <select [(ngModel)]="seriesFilter" (change)="filterReviews()" class="p-2 border border-gray-300 rounded w-full">
           <option value="">Todas las series</option>
           @for (series of seriesList; track series.id) {
-            <option [value]="series.id">{{ series.title }}</option>
+            <option [value]="series.title">{{ series.title }}</option>
           }
         </select>
+        
       </div>
     </div>
   

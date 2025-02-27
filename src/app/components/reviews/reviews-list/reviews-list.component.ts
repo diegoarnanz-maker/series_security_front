@@ -45,6 +45,7 @@ export class ReviewsListComponent {
         this.reviews = data;
         this.filteredReviews = this.reviews;
         this.loading = false;
+        console.log('📢 Lista de reseñas cargadas desde el backend:', this.reviews);
       },
       error: () => {
         this.errorMessage = 'Error al cargar las reseñas';
@@ -52,6 +53,7 @@ export class ReviewsListComponent {
       },
     });
   }
+  
 
   loadSeries() {
     this.seriesService.getAllSeries().subscribe({
@@ -64,21 +66,22 @@ export class ReviewsListComponent {
     });
   }
 
-  filterReviews() {
-    // this.filteredReviews = this.reviews.filter((review) => {
-    //   const matchesUser =
-    //     !this.userFilter ||
-    //     review.user.toLowerCase().includes(this.userFilter.toLowerCase());
-
-    //   const matchesSeries =
-    //     !this.seriesFilter || review.seriesId.toString() === this.seriesFilter;
-
-    //   return matchesUser && matchesSeries;
-    // });
-
-    // this.isFiltered = !!(this.userFilter || this.seriesFilter);
+  filterReviews() {  
+    this.filteredReviews = this.reviews.filter((review) => {
+  
+      const matchesUser =
+        !this.userFilter ||
+        review.username.toLowerCase().includes(this.userFilter.toLowerCase());
+  
+      const matchesSeries =
+        !this.seriesFilter || review.seriesTitle.toLowerCase() === this.seriesFilter.toLowerCase();
+    
+      return matchesUser && matchesSeries;
+    });
+  
+    this.isFiltered = !!(this.userFilter || this.seriesFilter);
   }
-
+  
   addReview() {
     this.router.navigate(['/reviews/add']);
   }

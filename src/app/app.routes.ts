@@ -13,9 +13,11 @@ import { SeriesDetailComponent } from './components/series/series-detail/series-
 import { SeriesFormComponent } from './components/series/series-form/series-form.component';
 import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
 import { UserFormComponent } from './components/user/user-form/user-form.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 
   // **Panel de Administración**
   {

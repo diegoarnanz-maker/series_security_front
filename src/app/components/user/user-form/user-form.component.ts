@@ -8,6 +8,7 @@ import {
 import { UserService } from '../../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../models/interfaces/user';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-form',
@@ -20,7 +21,10 @@ export class UserFormComponent implements OnInit {
   userForm!: FormGroup;
   isEditing = false;
   errorMessage = '';
+  isAdminUser = false;
+  
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private fb = inject(FormBuilder);
@@ -63,21 +67,20 @@ export class UserFormComponent implements OnInit {
       this.errorMessage = 'Por favor, completa todos los campos correctamente.';
       return;
     }
-
+  
     const selectedRole = this.userForm.value.role;
     const roles = selectedRole
       ? [{ id: selectedRole === 'ROLE_ADMIN' ? 1 : 2, name: selectedRole }]
       : [];
-
+  
     const userData: any = {
       username: this.userForm.value.username,
       email: this.userForm.value.email,
       password: this.userForm.value.password,
-      roles: roles,
     };
-
+  
     if (this.isEditing && this.userId) {
-      this.userService.updateUser(this.userId, userData).subscribe({
+      this.userService.updateUser(this.userId, { ...userData, roles }).subscribe({
         next: () => {
           this.router.navigate(['/admin/user-management']);
         },
@@ -87,16 +90,38 @@ export class UserFormComponent implements OnInit {
         },
       });
     } else {
-      this.userService.addUser(userData).subscribe({
-        next: () => {
-          this.router.navigate(['/admin/user-management']);
-        },
-        error: (err) => {
-          console.error(err);
-          this.errorMessage = 'Error al crear el usuario';
-        },
-      });
+      if (this.isAdminUser) {
+        userData.roles = roles;
+        this.userService.addUser(userData).subscribe({
+          next: () => {
+            this.router.navigate(['/admin/user-management']);
+          },
+          error: (err) => {
+            console.error(err);
+            this.errorMessage = 'Error al crear el usuario';
+          },
+        });
+      } else {
+        this.authService.register(userData.username, userData.email, userData.password).subscribe({
+          next: () => {
+            this.router.navigate(['/user/dashboard']);
+          },
+          error: (err) => {
+            console.error(err);
+            this.errorMessage = 'Error al registrarse';
+          },
+        });
+      }
     }
+  }
+  
+
+  isAdmin(){
+    let isAdmin = false;
+    this.userService.getRoles().subscribe((roles: string[]) => {
+      isAdmin = roles.includes('ROLE_ADMIN');
+    });
+    return isAdmin;
   }
 
   goBack() {

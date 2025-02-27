@@ -30,11 +30,26 @@ export class AuthService {
           this.userSubject.next(userData);
         }),
         catchError((error) => {
-          console.error('❌ Error en login:', error);
+          console.error(error);
           return throwError(() => new Error('Error al iniciar sesión'));
         })
       );
   }
+
+  register(username: string, email: string, password: string): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/register`, { username, email, password })
+      .pipe(
+        tap((response) => {
+          console.log('✅ Usuario registrado:', response);
+        }),
+        catchError((error) => {
+          console.error('❌ Error en registro:', error);
+          return throwError(() => new Error('Error al registrarse'));
+        })
+      );
+  }
+  
 
   isAuthenticated(): boolean {
     return !!this.loadUserFromStorage();
