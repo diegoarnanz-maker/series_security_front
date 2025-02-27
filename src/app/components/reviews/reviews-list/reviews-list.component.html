@@ -1,0 +1,52 @@
+<div class="max-w-6xl mx-auto p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-primary">Lista de Reseñas</h1>
+  
+      <button
+        (click)="addReview()"
+        class="bg-primary text-white px-4 py-2 rounded shadow-md hover:bg-secondary transition"
+      >
+        Añadir Reseña
+      </button>
+    </div>
+  
+    <div class="bg-card p-4 rounded-lg shadow-md mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          [(ngModel)]="userFilter"
+          (input)="filterReviews()"
+          placeholder="Buscar por usuario"
+          class="p-2 border border-gray-300 rounded w-full"
+        />
+  
+        <select [(ngModel)]="seriesFilter" (change)="filterReviews()" class="p-2 border border-gray-300 rounded w-full">
+          <option value="">Todas las series</option>
+          @for (series of seriesList; track series.id) {
+            <option [value]="series.id">{{ series.title }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  
+    @if (loading) {
+      <p class="text-center text-gray-500">Cargando reseñas...</p>
+    } @if (errorMessage) {
+      <p class="text-center text-red-500">{{ errorMessage }}</p>
+    }
+  
+    @if (isFiltered) {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (review of filteredReviews; track review.id) {
+          <app-reviews-card [review]="review"></app-reviews-card>
+        }
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (review of reviews; track review.id) {
+          <app-reviews-card [review]="review"></app-reviews-card>
+        }
+      </div>
+    }
+  </div>
+  

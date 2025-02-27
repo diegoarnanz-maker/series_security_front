@@ -1,0 +1,14 @@
+<div class="bg-card p-4 rounded-lg shadow-md flex flex-col items-start">
+    <h2 class="text-lg font-semibold text-primary">{{ review.seriesTitle }}</h2>
+    <p class="text-sm text-gray-700">Usuario: {{ review.username }}</p>
+    <p class="text-sm text-gray-500">Fecha: {{ getFormattedDate() }}</p>
+  
+    <div class="flex items-center mt-2">
+      <p class="text-yellow-500 font-semibold">{{ review.rating }}/5 ⭐</p>
+    </div>
+  
+    <p class="mt-2 text-gray-800">{{ review.comment }}</p>
+  
+    <app-reviews-action-buttons [review]="review"></app-reviews-action-buttons>
+  </div>
+  
