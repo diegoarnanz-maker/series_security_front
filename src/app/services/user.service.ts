@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from '../models/interfaces/user';
 import { HttpClient } from '@angular/common/http';
 
@@ -29,8 +29,13 @@ export class UserService {
   }
 
   addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.userUrl, user);
+    console.log('Datos antes de enviar al backend:', user);
+    
+    return this.http.post<User>(this.userUrl, user).pipe(
+      tap(response => console.log('Respuesta del backend:', response))
+    );
   }
+  
 
   updateUser(id: number, user: User): Observable<User> {
     return this.http.put<User>(`${this.userUrl}/${id}`, user);

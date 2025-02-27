@@ -1,5 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../models/interfaces/user';
@@ -7,11 +12,9 @@ import { User } from '../../../models/interfaces/user';
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-  ],
+  imports: [ReactiveFormsModule],
   templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.css'
+  styleUrl: './user-form.component.css',
 })
 export class UserFormComponent implements OnInit {
   userForm!: FormGroup;
@@ -61,7 +64,17 @@ export class UserFormComponent implements OnInit {
       return;
     }
 
-    const userData: User = { ...this.userForm.value };
+    const selectedRole = this.userForm.value.role;
+    const roles = selectedRole
+      ? [{ id: selectedRole === 'ROLE_ADMIN' ? 1 : 2, name: selectedRole }]
+      : [];
+
+    const userData: any = {
+      username: this.userForm.value.username,
+      email: this.userForm.value.email,
+      password: this.userForm.value.password,
+      roles: roles,
+    };
 
     if (this.isEditing && this.userId) {
       this.userService.updateUser(this.userId, userData).subscribe({
@@ -71,7 +84,7 @@ export class UserFormComponent implements OnInit {
         error: (err) => {
           console.error(err);
           this.errorMessage = 'Error al actualizar el usuario';
-        }
+        },
       });
     } else {
       this.userService.addUser(userData).subscribe({
@@ -81,7 +94,7 @@ export class UserFormComponent implements OnInit {
         error: (err) => {
           console.error(err);
           this.errorMessage = 'Error al crear el usuario';
-        }
+        },
       });
     }
   }
