@@ -4,12 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#B71C1C", // Rojo oscuro
-        secondary: "#D32F2F", // Rojo medio
-        accent: "#FF5252", // Rojo vibrante
-        background: "#FBE9E7", // Fondo claro
-        card: "#FFCDD2", // Fondo para tarjetas
-        text: "#3E2723", // Texto oscuro
+        primary: "#B71C1C",
+        secondary: "#D32F2F",
+        accent: "#FF5252",
+        background: "#FBE9E7",
+        card: "#FFCDD2",
+        text: "#3E2723",
       },
       fontFamily: {
         tituloLogo: ["tituloLogo", "sans-serif"],

@@ -14,6 +14,9 @@ import { SeriesFormComponent } from './components/series/series-form/series-form
 import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
 import { UserFormComponent } from './components/user/user-form/user-form.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { SeriesListComponent } from './components/series/series-list/series-list.component';
+import { SerieListUserComponent } from './pages/user/serie-list-user/serie-list-user.component';
+import { SeriesFavoritesComponent } from './pages/user/series-favorites/series-favorites.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -71,6 +74,20 @@ export const routes: Routes = [
     component: UserFormComponent,
     canActivate: [adminGuard],
   },
+
+  // Seccion de Usuario authenticated
+  {
+    path: 'user/dashboard',
+    component: UserDashboardComponent,
+    canActivate: [authGuard],
+  },
+  // **Secciones del Usuario**
+  { path: 'series', component: SerieListUserComponent, canActivate: [authGuard] },
+  // { path: 'reviews', component: ReviewsListComponent, canActivate: [authGuard] },
+  { path: 'favorites', component: SeriesFavoritesComponent, canActivate: [authGuard] },
+  // { path: 'perfil', component: UserProfileComponent, canActivate: [authGuard] },
+
+  
 
   { path: '**', redirectTo: 'login' },
 ];

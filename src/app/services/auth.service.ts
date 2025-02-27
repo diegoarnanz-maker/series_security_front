@@ -49,7 +49,11 @@ export class AuthService {
         })
       );
   }
-  
+
+  getUserId(): number | null {
+    const user = this.loadUserFromStorage();
+    return user ? user.id : null;
+  }
 
   isAuthenticated(): boolean {
     return !!this.loadUserFromStorage();

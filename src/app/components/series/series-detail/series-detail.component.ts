@@ -4,6 +4,7 @@ import { SeriesService } from '../../../services/series.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-series-detail',
@@ -18,8 +19,13 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 export class SeriesDetailComponent implements OnInit {
   serie: Serie | null = null;
   private seriesService = inject(SeriesService);
+  private authService = inject(AuthService);
+
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+
+  isAdmin: boolean = this.authService.isAdmin();
+  isUserAuth: boolean = this.authService.isUser();
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
