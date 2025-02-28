@@ -15,6 +15,7 @@ export class AuthService {
     return this.userSubject.asObservable();
   }
 
+
   login(username: string, password: string): Observable<any> {
     return this.http
       .post<any>(`${this.apiUrl}/login`, { username, password })
@@ -23,12 +24,15 @@ export class AuthService {
           const userData = {
             username: username,
             password: password,
+            id: response.id,
             roles: response.roles,
           };
-
+        
           localStorage.setItem('user', JSON.stringify(userData));
           this.userSubject.next(userData);
+          // console.log('📦 Usuario guardado en localStorage:', localStorage.getItem('user'));
         }),
+        
         catchError((error) => {
           console.error(error);
           return throwError(() => new Error('Error al iniciar sesión'));
