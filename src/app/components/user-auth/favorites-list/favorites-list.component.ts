@@ -27,7 +27,7 @@ export class FavoritesListComponent implements OnInit {
 
   loadFavorites() {
     const userId = this.authService.getUserId();
-  
+
     if (!userId) {
       this.errorMessage = 'No se ha encontrado un usuario autenticado.';
       this.loading = false;
@@ -36,18 +36,24 @@ export class FavoritesListComponent implements OnInit {
 
     this.favoritesService.getFavoritesByUserId(userId).subscribe({
       next: (favoritesData) => {
+
         if (favoritesData.length === 0) {
           this.favorites = [];
           this.loading = false;
           return;
         }
 
-        // Mapeamos los IDs de las series y hacemos una petición por cada una
-        const seriesRequests = favoritesData.map(favorite =>
-          this.favoritesService.getSerieById(favorite.seriesId)
-        );
+        const seriesRequests = favoritesData
+          .filter((favorite) => !!favorite.seriesId)
+          .map((favorite) =>
+            this.favoritesService.getSerieById(favorite.seriesId)
+          );
 
-        // Ejecutamos todas las peticiones en paralelo
+        if (seriesRequests.length === 0) {
+          this.loading = false;
+          return;
+        }
+
         forkJoin(seriesRequests).subscribe({
           next: (seriesDetails) => {
             this.favorites = seriesDetails;
@@ -57,7 +63,7 @@ export class FavoritesListComponent implements OnInit {
             console.error('❌ Error al cargar detalles de series:', err);
             this.errorMessage = 'Error al cargar detalles de las series.';
             this.loading = false;
-          }
+          },
         });
       },
       error: (err) => {

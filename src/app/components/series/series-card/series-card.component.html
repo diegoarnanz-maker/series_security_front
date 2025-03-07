@@ -25,24 +25,31 @@
   </div>
 
   @if (isUserAuth) {
-    <div class="flex justify-between items-center mt-2">
+  <div class="flex justify-between items-center mt-2">
+    @if (!isFavoritesPage) {
       <button
         (click)="addToFavorites()"
         class="flex justify-center items-center gap-1 px-3 py-1 text-s bg-primary text-white rounded-full shadow-md hover:bg-secondary transition text-center"
       >
         ⭐ Fav
       </button>
-  
+    } @else {
       <button
-        (click)="goSerieDetails()"
-        class="flex justify-center items-center gap-1 px-4 py-1 text-s bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-700 transition text-center"
+        (click)="removeFromFavorites()"
+        class="flex justify-center items-center gap-1 px-3 py-1 text-s bg-red-400 text-white rounded-full shadow-md hover:bg-red-700 transition text-center"
       >
-        Ver
+        ❌ Quitar
       </button>
-    </div>
-  }
-  
-  @if (isAdmin) {
+    }
+
+    <button
+      (click)="goSerieDetails()"
+      class="flex justify-center items-center gap-1 px-4 py-1 text-s bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-700 transition text-center"
+    >
+      Ver
+    </button>
+  </div>
+  } @if (isAdmin) {
   <app-action-buttons
     [serieId]="serie.id"
     (actionCompleted)="handleAction($event)"
