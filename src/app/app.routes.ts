@@ -17,6 +17,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { SerieListUserComponent } from './pages/user/serie-list-user/serie-list-user.component';
 import { SeriesFavoritesComponent } from './pages/user/series-favorites/series-favorites.component';
 import { ReviewsUserComponent } from './pages/user/reviews-user/reviews-user.component';
+import { MiPerfilComponent } from './pages/user/mi-perfil/mi-perfil.component';
 
 
 export const routes: Routes = [
@@ -86,6 +87,7 @@ export const routes: Routes = [
   { path: 'series', component: SerieListUserComponent, canActivate: [authGuard] },
   { path: 'favorites', component: SeriesFavoritesComponent, canActivate: [authGuard] },
   { path: 'reviews', component: ReviewsUserComponent, canActivate: [authGuard] },
+  { path: 'perfil', component: MiPerfilComponent, canActivate: [authGuard] },
 
   { path: '**', redirectTo: 'login' },
 ];

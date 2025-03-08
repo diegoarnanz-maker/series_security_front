@@ -61,7 +61,6 @@ export class ReviewsListComponent implements OnInit {
 
         this.filteredReviews = this.reviews;
         this.loading = false;
-        console.log('📢 Lista de reseñas cargadas:', this.reviews);
       },
       error: () => {
         this.errorMessage = 'Error al cargar las reseñas';
@@ -74,7 +73,6 @@ export class ReviewsListComponent implements OnInit {
     this.seriesService.getAllSeries().subscribe({
       next: (data) => {
         this.seriesList = data;
-        console.log('📺 Lista de series cargadas:', this.seriesList);
       },
       error: () => {
         this.errorMessage = 'Error al cargar las series';
