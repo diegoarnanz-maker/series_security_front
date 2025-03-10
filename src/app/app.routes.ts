@@ -18,11 +18,14 @@ import { SerieListUserComponent } from './pages/user/serie-list-user/serie-list-
 import { SeriesFavoritesComponent } from './pages/user/series-favorites/series-favorites.component';
 import { ReviewsUserComponent } from './pages/user/reviews-user/reviews-user.component';
 import { MiPerfilComponent } from './pages/user/mi-perfil/mi-perfil.component';
+import { PublicHomeComponent } from './pages/public-home/public-home.component';
 
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: '', component: PublicHomeComponent },
+  { path: 'home', component: PublicHomeComponent },
 
   // **Panel de Administración**
   {
@@ -89,5 +92,5 @@ export const routes: Routes = [
   { path: 'reviews', component: ReviewsUserComponent, canActivate: [authGuard] },
   { path: 'perfil', component: MiPerfilComponent, canActivate: [authGuard] },
 
-  { path: '**', redirectTo: 'login' },
+  { path: '**', redirectTo: 'login' }
 ];

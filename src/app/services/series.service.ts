@@ -43,4 +43,8 @@ export class SeriesService {
   getGenres(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/genres`);
   }
+
+  getLatestSeries(): Observable<Serie[]> {
+    return this.http.get<Serie[]>(`${this.apiUrl}/latest`);
+  }
 }
