@@ -22,36 +22,103 @@
   />
   }
 
-  <div class="mt-6">
-    <p class="text-lg"><strong>Género: </strong> {{ serie?.genre }}</p>
-    <p class="text-lg">
-      <strong>Año de Estreno:</strong> {{ serie?.releaseYear }}
-    </p>
-    <p class="text-lg">
-      <strong>Rating: </strong>
-      <span class="font-bold text-primary"> {{ serie?.rating }} ⭐ </span>
-    </p>
-    <p class="text-lg mt-2">
-      <strong>Descripción: </strong> {{ serie?.description }}
-    </p>
+  <div class="mt-8">
+    <h2 class="text-2xl font-bold text-primary mb-4">Reseñas</h2>
+
+    @if (loading) {
+    <p class="text-gray-500">Cargando reseñas...</p>
+    } @else if (reviews.length === 0) {
+    <p class="text-gray-500">Aún no hay reseñas para esta serie.</p>
+    } @else {
+    <div class="space-y-4">
+      @for (review of reviews; track $index) {
+      <div class="p-4 border rounded-lg shadow-md">
+        <p class="font-semibold text-primary">{{ review.username }}</p>
+        <p class="text-sm text-gray-600">
+          {{ review.createdAt | date : "short" }}
+        </p>
+        <p class="text-lg">⭐ {{ review.rating }}</p>
+        <p class="text-gray-800">{{ review.comment }}</p>
+      </div>
+      }
+    </div>
+    }
   </div>
 
+  @if (isUserAuth && !userHasReviewed) {
+  <button
+    (click)="openModal()"
+    class="mt-6 bg-primary text-white px-4 py-2 rounded shadow-md hover:bg-secondary transition"
+  >
+    📝 Añadir Reseña
+  </button>
+  } @if (isModalOpen) {
+  <div
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+  >
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-lg font-semibold text-primary mb-4">Añadir Reseña</h2>
+
+      <form (submit)="submitReview()" class="space-y-4">
+        <div>
+          <label class="block text-gray-700 font-semibold"
+            >Calificación (1-10):</label
+          >
+          <input
+            type="number"
+            min="1"
+            max="10"
+            [(ngModel)]="newReview.rating"
+            name="rating"
+            class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-semibold">Comentario:</label>
+          <textarea
+            [(ngModel)]="newReview.comment"
+            name="comment"
+            rows="3"
+            class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          ></textarea>
+        </div>
+
+        <div class="flex justify-between">
+          <button
+            type="submit"
+            class="bg-primary text-white px-4 py-2 rounded-md shadow-md hover:bg-secondary transition"
+          >
+            📩 Enviar
+          </button>
+          <button
+            (click)="closeModal()"
+            type="button"
+            class="bg-gray-400 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition"
+          >
+            ❌ Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  }
+  
   <div class="mt-6 flex justify-end">
     @if(isAdmin) {
-      <a
-        routerLink="/admin/series-management"
-        class="bg-text text-white px-4 py-2 rounded shadow-md hover:bg-gray-700 transition"
-      >
-        Volver
-      </a>
-    } 
-    @if(isUserAuth) {
-      <a
-        routerLink="/series"
-        class="bg-text text-white px-4 py-2 rounded shadow-md hover:bg-gray-700 transition"
-      >
-        Volver
-      </a>
+    <a
+      routerLink="/admin/series-management"
+      class="bg-text text-white px-4 py-2 rounded shadow-md hover:bg-gray-700 transition"
+    >
+      Volver
+    </a>
+    } @if(isUserAuth) {
+    <a
+      routerLink="/series"
+      class="bg-text text-white px-4 py-2 rounded shadow-md hover:bg-gray-700 transition"
+    >
+      Volver
+    </a>
     }
   </div>
 </div>
